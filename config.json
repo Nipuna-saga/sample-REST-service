@@ -1,0 +1,23 @@
+{
+    "postRequests": [{
+        "path": "/post",
+        "payload": {
+            "name": "nipuna"
+        }
+    }],
+    "getRequests": [{
+            "path": "/get",
+            "payload": {
+                "username": "Nipuna-get1",
+                "pw": 123
+            }
+
+        }, {
+            "path": "/get2",
+            "payload": {
+                "username": "Nipuna-get2",
+                "pw": 123
+            }
+        }
+    ]
+}
