@@ -1,0 +1,31 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Associate this job with the 'production' environment
+    environment:
+      name: prod
+      # Optionally, include a URL for context or links in the GitHub UI
+      url: https://your-production-site.com
+
+    steps:
+      - name: Checkout Code
+        run: echo "Checkout Code"
+
+      - name: Set Up Node.js
+        run: echo "Set Up Node.js"
+
+      - name: Install Dependencies
+        run: echo "Install Dependencies"
+
+      - name: Build Application
+        run: echo "Build Application"
+
+      - name: Deploy Application
+        run: echo "Deploy Application"
