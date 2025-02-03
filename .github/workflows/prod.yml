@@ -49,9 +49,9 @@ jobs:
         run: echo "Running security tests..."
 
   integration_tests:
-    name: integration Tests
+    name: Integration Tests
     runs-on: ubuntu-latest
-    needs: build1
+    needs: build2
     steps:
       - name: Run Security Tests
         run: echo "Running security tests..."
