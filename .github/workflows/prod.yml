@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Deploy to Multiple Environments
 
 on:
   push:
@@ -6,26 +6,26 @@ on:
       - master
 
 jobs:
-  deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
-    # Associate this job with the 'production' environment
     environment:
-      name: prod
-      # Optionally, include a URL for context or links in the GitHub UI
-      url: https://your-production-site.com
-
+      name: dev
+      url: https://staging.example.com
     steps:
       - name: Checkout Code
-        run: echo "Checkout Code"
+        uses: actions/checkout@v3
 
-      - name: Set Up Node.js
-        run: echo "Set Up Node.js"
+      - name: Deploy to Staging
+        run: echo "Deploying to the staging environment..."
 
-      - name: Install Dependencies
-        run: echo "Install Dependencies"
+  deploy-production:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://production.example.com
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Build Application
-        run: echo "Build Application"
-
-      - name: Deploy Application
-        run: echo "Deploy Application"
+      - name: Deploy to Production
+        run: echo "Deploying to the production environment..."
