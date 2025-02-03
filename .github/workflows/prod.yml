@@ -7,8 +7,16 @@ on:
       - staging
 
 jobs:
-  build:
-    name: Build
+  build1:
+    name: Build 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        run: echo "Checking out code..."
+      - name: Build Application
+        run: echo "Building application..."
+  build2:
+    name: Build 2
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -19,7 +27,7 @@ jobs:
   unit_tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: build1
     steps:
       - name: Run Unit Tests
         run: echo "Running unit tests..."
@@ -27,7 +35,7 @@ jobs:
   bdd_tests:
     name: BDD Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: build1
     steps:
       - name: Run BDD Tests
         run: echo "Running BDD tests..."
@@ -35,7 +43,15 @@ jobs:
   security_tests:
     name: Security Tests
     runs-on: ubuntu-latest
-    needs: build
+    needs: build1
+    steps:
+      - name: Run Security Tests
+        run: echo "Running security tests..."
+
+  integration_tests:
+    name: integration Tests
+    runs-on: ubuntu-latest
+    needs: build1
     steps:
       - name: Run Security Tests
         run: echo "Running security tests..."
@@ -47,7 +63,8 @@ jobs:
       - unit_tests
       - bdd_tests
       - security_tests
-    if: github.ref == 'refs/heads/dev'
+      - integration_tests
+    if: github.ref == 'refs/heads/master'
     environment:
       name: dev
       url: https://dev.example.com
@@ -62,6 +79,7 @@ jobs:
       - unit_tests
       - bdd_tests
       - security_tests
+      - integration_tests
     if: github.ref == 'refs/heads/master'
     environment:
       name: prod
