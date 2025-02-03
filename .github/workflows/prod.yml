@@ -53,17 +53,34 @@ jobs:
     runs-on: ubuntu-latest
     needs: build2
     steps:
-      - name: Run Security Tests
-        run: echo "Running security tests..."
+      - name: Run Integration Tests
+        run: echo "Running Integration tests..."
 
-  deploy_dev:
-    name: Deploy to Dev
+  load_tests:
+    name: Load Tests
     runs-on: ubuntu-latest
     needs:
       - unit_tests
       - bdd_tests
       - security_tests
       - integration_tests
+    steps:
+      - name: Run Load Tests
+        run: echo "Running Load tests..."
+  smoke_tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    needs:
+      - load_tests
+    steps:
+      - name: Run Smoke Tests
+        run: echo "Running Smoke tests..."
+
+  deploy_dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    needs:
+      - smoke_tests
     if: github.ref == 'refs/heads/master'
     environment:
       name: dev
@@ -76,10 +93,7 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs:
-      - unit_tests
-      - bdd_tests
-      - security_tests
-      - integration_tests
+      - smoke_tests
     if: github.ref == 'refs/heads/master'
     environment:
       name: prod
