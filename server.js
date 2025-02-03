@@ -17,6 +17,7 @@ initGet = function() {//this function  initialize all REST GET services
     var getRequests = config.getRequests;
 
     console.log(getRequests)
+    console.log("hello")
 
     getRequests.forEach(function(getRequest) {
 
